@@ -4,5 +4,24 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
     <!-- Root Context: defines shared resources visible to all other web components -->
-    
+
+    <bean id="memberMap" class="java.util.HashMap">
+        <constructor-arg>
+            <map key-type="java.lang.String" value-type="com.nhnent.springmvc.model.Member">
+                <entry key="yankee" value-ref="member1" />
+                <entry key="sunbi"  value-ref="member2" />
+            </map>
+        </constructor-arg>
+    </bean>
+
+    <bean id="member1" class="com.nhnent.springmvc.model.Member">
+        <property name="id" value="yankee" />
+        <property name="password" value="12345" />
+    </bean>
+
+    <bean id="member2" class="com.nhnent.springmvc.model.Member">
+        <property name="id" value="sunbi" />
+        <property name="password" value="67890" />
+    </bean>
+
 </beans>
