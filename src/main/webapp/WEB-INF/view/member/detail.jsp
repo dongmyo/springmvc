@@ -15,5 +15,6 @@
     ${detail.password}
     <br />
 
+    <a href="/member/list">목록으로</a>
 </body>
 </html>

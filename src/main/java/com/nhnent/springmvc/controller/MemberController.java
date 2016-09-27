@@ -4,6 +4,8 @@ import com.nhnent.springmvc.model.Member;
 import com.nhnent.springmvc.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,30 +19,29 @@ public class MemberController {
 
 
     @GetMapping(value = "/list")
-    public ModelAndView list() {
+    public String list(ModelMap map) {
         List<Member> members = memberRepository.list();
 
-        ModelAndView mav = new ModelAndView("member/list");
-        mav.addObject("members", members);
+        map.addAttribute("members", members);
 
-        return mav;
+        return "member/list";
     }
 
     @RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
     public ModelAndView detail(@PathVariable("id") String id) {
-        return getMember(id);
-    }
-
-    @RequestMapping(value = "/detail", method = RequestMethod.GET, params = "id")
-    public ModelAndView detail2(@RequestParam("id") String id) {
-        return getMember(id);
-    }
-
-    private ModelAndView getMember(String id) {
         Member member = memberRepository.get(id);
 
         return new ModelAndView("member/detail")
                 .addObject("detail", member);
+    }
+
+    @RequestMapping(value = "/detail", method = RequestMethod.GET, params = "id")
+    public String detail2(@RequestParam("id") String id, Model model) {
+        Member member = memberRepository.get(id);
+
+        model.addAttribute("detail", member);
+
+        return "member/detail";
     }
 
 }
