@@ -1,5 +1,6 @@
 package com.nhnent.springmvc.controller;
 
+import com.nhnent.springmvc.exception.MemberNotFoundException;
 import com.nhnent.springmvc.model.Member;
 import com.nhnent.springmvc.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,12 @@ public class MemberDetailController {
 
     @ModelAttribute("detail")
     public Member getMember(@PathVariable("id") String id) {
-        return memberRepository.get(id);
+        Member member = memberRepository.get(id);
+        if (member == null) {
+            throw new MemberNotFoundException();
+        }
+
+        return member;
     }
 
 
