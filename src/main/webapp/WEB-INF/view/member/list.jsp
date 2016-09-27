@@ -15,7 +15,7 @@
 
 <c:forEach var="member" items="${members}">
     <a href="/member/detail/${member.id}">${member.id}</a>,
-    <a href="/member/detail?id=${member.id}">*****</a>
+    <a href="/member/detail/${member.id}?hiddenPassword=true">*****</a>
     <br />
 </c:forEach>
 </body>
